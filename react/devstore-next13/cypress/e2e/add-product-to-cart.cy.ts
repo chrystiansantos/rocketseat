@@ -11,7 +11,7 @@ describe('add product to cart', () => {
 
     cy.contains('Adicionar ao carrinho').click()
 
-    cy.contains('Cart (1').should('exist')
+    cy.contains('Cart (1)').should('exist')
   })
 
   it('should not add count duplicated products on cart', () => {
@@ -23,7 +23,7 @@ describe('add product to cart', () => {
     cy.contains('Adicionar ao carrinho').click()
     cy.contains('Adicionar ao carrinho').click()
 
-    cy.contains('Cart (1').should('exist')
+    cy.contains('Cart (1)').should('exist')
   })
 
   it('should be able to search for a product and add it the cart', () => {
