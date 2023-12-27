@@ -1,0 +1,16 @@
+{
+  "title": "Meu histórico",
+  "table": {
+    "task": "Tarefa",
+    "during": "Duração",
+    "start": "Início",
+    "status": "Status"
+  },
+  "minutes": "minutos",
+  "status_label": {
+    "finished": "Concluído",
+    "interrupted": "Interrompido",
+    "progress": "Em andamento"
+  },
+  "not_task":"Não há tarefas registradas ainda. Vamos registrar a primeira!"
+}

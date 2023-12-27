@@ -1,0 +1,16 @@
+{
+  "title": "My history",
+  "table": {
+    "task": "Task",
+    "during": "During",
+    "start": "Start",
+    "status": "Status"
+  },
+  "minutes": "Minutes",
+  "status_label": {
+    "finished": "Finished",
+    "interrupted": "Interrupted",
+    "progress": "In progress"
+  },
+  "not_task":"There are no tasks registered yet. Let's register the first one!"
+}
