@@ -1,0 +1,36 @@
+{
+  "transactions": [
+    {
+      "id": 1,
+      "description": "Desenvolvimento de site",
+      "type": "income",
+      "category": "Venda",
+      "price": 12000,
+      "createdAt": "2023-12-27T20:54:29.070Z"
+    },
+    {
+      "category": "Lazer",
+      "description": "Viagem",
+      "price": 2000,
+      "type": "outcome",
+      "createdAt": "2024-01-01T23:50:29.193Z",
+      "id": 2
+    },
+    {
+      "category": "Alimentação",
+      "description": "Mercado",
+      "price": 750,
+      "type": "outcome",
+      "createdAt": "2024-01-01T23:50:50.176Z",
+      "id": 3
+    },
+    {
+      "category": "Work",
+      "description": "Desenvolvimento de app",
+      "price": 4000,
+      "type": "income",
+      "createdAt": "2024-01-01T23:51:19.809Z",
+      "id": 4
+    }
+  ]
+}
