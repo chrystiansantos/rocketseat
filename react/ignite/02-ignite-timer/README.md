@@ -1,6 +1,6 @@
 # Ignite Timer 🕗
 
-Durante o módulo "Aprofundando em Hooks" do Ignite, desenvolvi este aplicativo utilizando o Vite. Ao criar essa pequena aplicação, pude incorporar vários conceitos, tais como useReducer, Context API, React Hook Forms, Tailwind CSS, Immer, roteamento e diversos outros relacionados ao React. Inspirado no princípio da "milha extra" mencionado pelo Diego, decidi incluir a funcionalidade de tradução para inglês e português, conforme configurado pelo usuário.
+Durante o módulo "Aprofundando em Hooks" do Ignite, desenvolvi este aplicativo utilizando o Vite. Ao criar essa pequena aplicação, pude incorporar vários conceitos, tais como useReducer, Context API, React Hook Forms, Styled-Components, Immer, roteamento e diversos outros relacionados ao React. Inspirado no princípio da "milha extra" mencionado pelo Diego, decidi incluir a funcionalidade de tradução para inglês e português, conforme configurado pelo usuário.
 
 ## Executando:
 
