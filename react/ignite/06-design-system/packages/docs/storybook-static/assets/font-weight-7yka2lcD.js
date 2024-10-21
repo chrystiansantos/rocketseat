@@ -1,0 +1,4 @@
+import{j as t}from"./jsx-runtime-BZf_YgVj.js";import{useMDXComponents as s}from"./index-BwF_zu8I.js";import{T as i,a as r}from"./TokensGrid--kIJPmFN.js";import{M as m}from"./index-D3SNvW-h.js";import"./index-CEThVCg_.js";import"./iframe-AKR9FKO8.js";import"../sb-preview/runtime.js";import"./index-5YtWdR9a.js";import"./index-xnkZ--kd.js";import"./index-DXimoRZY.js";import"./index-9UrncIcR.js";import"./index-DrFu-skq.js";function e(o){const n={h1:"h1",p:"p",...s(),...o.components};return t.jsxs(t.Fragment,{children:[t.jsx(m,{title:"Tokens/Fonts Weight"}),`
+`,t.jsx(n.h1,{id:"font-weight",children:"Font Weight"}),`
+`,t.jsx(n.p,{children:"Essas são os tamanhos de fonts utilizadas no Ignite UIEvent."}),`
+`,t.jsx(i,{tokens:r})]})}function k(o={}){const{wrapper:n}={...s(),...o.components};return n?t.jsx(n,{...o,children:t.jsx(e,{...o})}):e(o)}export{k as default};

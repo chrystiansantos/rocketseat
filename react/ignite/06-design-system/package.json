@@ -1,0 +1,18 @@
+{
+  "name": "Ignite",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "turbo run dev --parallel",
+    "build": "turbo run build"
+  },
+  "packageManager": "^npm@10.1.0",
+  "devDependencies": {
+    "turbo": "^2.0.5"
+  },
+  "dependencies": {
+    "@storybook/addon-a11y": "^8.3.0"
+  }
+}
