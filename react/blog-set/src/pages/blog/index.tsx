@@ -1,7 +1,7 @@
 
 export default function Blog() {
   return (
-    <div className="min-h-screen min-w-full bg-zinc-900">
+    <div className="min-h-screen min-w-full">
       <div>Blog</div>
     </div>
   )
