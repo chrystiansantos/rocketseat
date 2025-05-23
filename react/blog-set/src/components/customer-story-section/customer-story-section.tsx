@@ -25,7 +25,6 @@ const customerStories = [
   }
 ]
 
-
 export function CustomerStorySection() {
   return (
     <section className="container py-8 md:py-10">
