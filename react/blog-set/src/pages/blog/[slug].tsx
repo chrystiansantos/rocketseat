@@ -81,7 +81,6 @@ export default function PostPage() {
           </article>
 
           <aside className="space-y-6">
-<<<<<<< HEAD
             <div className="rounded-lg bg-gray-700">
               <h2 className="mb-4 text-heading-xs text-gray-100">Compartilhar</h2>
               <div className="space-y-3">
@@ -91,13 +90,6 @@ export default function PostPage() {
                     variant="outline"
                     className="w-full justify-start gap-2"
                     onClick={() => provider.action()}>
-=======
-            <div className="rounded-lg bg-gray-700 p-4 md:p-6">
-              <h2 className="mb-4 text-heading-xs text-gray-100">Compartilhar</h2>
-              <div className="space-y-3">
-                {shareButtons.map(provider => (
-                  <Button key={provider.provider} variant="outline" className="w-full justify-start gap-2" onClick={() => provider.action()}>
->>>>>>> 616e96ebb74ac3efe991b8746f763b487c12c207
                     {provider.icon}
                     {provider.name}
                   </Button>
