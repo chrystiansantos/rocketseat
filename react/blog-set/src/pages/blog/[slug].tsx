@@ -1,6 +1,8 @@
 import { Avatar } from "@/components/avatar"
 import { Markdown } from "@/components/markdown"
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator } from "@/components/ui/breadcrumb"
+import { Button } from "@/components/ui/button"
+import { useShare } from "@/hooks"
 import { allPosts } from "contentlayer/generated"
 import Image from "next/image"
 import Link from "next/link"
@@ -13,6 +15,14 @@ export default function PostPage() {
     post => post.slug.toLocaleLowerCase() === slug?.toLocaleLowerCase()
   )!;
   const publishedDate = new Date(post?.date).toLocaleDateString('pt-BR')
+
+  const postUrl = `https://site.set/blog/${slug}`
+
+  const { shareButtons } = useShare({
+    url: postUrl,
+    title: post?.title,
+    text: post?.description
+  })
 
   return (
     <main className="mt-32 text-gray-100">
@@ -52,6 +62,7 @@ export default function PostPage() {
                 <Avatar.Image
                   src={post?.author.avatar ?? ''}
                   alt={post?.author.name ?? ''}
+                  size="sm"
                 />
                 <Avatar.Content>
                   <Avatar.Title>{post?.author.name}</Avatar.Title>
@@ -67,8 +78,25 @@ export default function PostPage() {
                 content={post?.body?.raw}
               />
             </div>
-
           </article>
+
+          <aside className="space-y-6">
+            <div className="rounded-lg bg-gray-700">
+              <h2 className="mb-4 text-heading-xs text-gray-100">Compartilhar</h2>
+              <div className="space-y-3">
+                {shareButtons.map(provider => (
+                  <Button
+                    key={provider.provider}
+                    variant="outline"
+                    className="w-full justify-start gap-2"
+                    onClick={() => provider.action()}>
+                    {provider.icon}
+                    {provider.name}
+                  </Button>
+                ))}
+              </div>
+            </div>
+          </aside>
         </div>
       </div>
     </main>
