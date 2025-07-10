@@ -21,7 +21,7 @@ export function BlogList({ posts }: BlogListProps) {
       post.title.toLocaleLowerCase().includes(query.toLowerCase()))
     : posts
 
-  const hasPosts = !!posts.length
+  const hasPosts = !!postsList.length
 
   return (
     <div className="flex flex-col py-24 flex-grow h-full">
