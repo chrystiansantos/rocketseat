@@ -6,7 +6,6 @@ interface PostShareProps {
   postUrl: string
   title: string
   description: string
-
 }
 
 export function PostShare({ postUrl, title, description }: PostShareProps) {
