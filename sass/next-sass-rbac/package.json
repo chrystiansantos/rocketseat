@@ -9,11 +9,7 @@
     "check-types": "turbo run check-types"
   },
   "devDependencies": {
-    "@sass/eslint-config": "workspace:*",
-    "@sass/typescript-config": "workspace:*",
-    "prettier": "^3.6.2",
-    "turbo": "^2.5.5",
-    "typescript": "5.8.3"
+    "turbo": "^2.5.5"
   },
   "engines": {
     "node": ">=18"
