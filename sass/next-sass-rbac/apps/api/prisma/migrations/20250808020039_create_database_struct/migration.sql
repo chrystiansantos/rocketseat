@@ -96,6 +96,9 @@ CREATE TABLE "public"."projects" (
 CREATE UNIQUE INDEX "users_email_key" ON "public"."users"("email");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "accounts_provider_account_id_key" ON "public"."accounts"("provider_account_id");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "accounts_provider_user_id_key" ON "public"."accounts"("provider", "user_id");
 
 -- CreateIndex
