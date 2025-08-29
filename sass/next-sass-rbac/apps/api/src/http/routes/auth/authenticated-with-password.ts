@@ -1,3 +1,4 @@
+import { BadRequestError } from "@/http/_errors/bad-request-errors";
 import { prisma } from "@/lib/prisma";
 import { compare } from "bcryptjs";
 import type { FastifyInstance } from "fastify";
@@ -13,7 +14,12 @@ export async function authenticationWithPassword(app: FastifyInstance) {
         body: z.object({
           email: z.email(),
           password: z.string(),
-        })
+        }),
+        response: {
+          201: z.object({
+            token: z.string()
+          })
+        }
       }
     },
     async (request, reply) => {
@@ -21,19 +27,15 @@ export async function authenticationWithPassword(app: FastifyInstance) {
 
       const userFromEmail = await prisma.user.findUnique({ where: { email } })
 
-      if (!userFromEmail) return reply.status(404).send(
-        { message: 'Invalid credentials.' }
-      )
+      if (!userFromEmail) throw new BadRequestError('Invalid credentials.')
 
       if (userFromEmail.passwordHash === null) {
-        return reply.status(400).send({ message: 'User does not have a password, use a social login.' })
+        throw new BadRequestError('User does not have a password, use a social login.')
       }
 
       const isPasswordValid = await compare(password, userFromEmail.passwordHash)
 
-      if (!isPasswordValid) return reply.status(404).send(
-        { message: 'Invalid credentials.' }
-      )
+      if (!isPasswordValid) throw new BadRequestError('Invalid credentials.')
 
       const token = await reply.jwtSign({
         sub: userFromEmail.id
