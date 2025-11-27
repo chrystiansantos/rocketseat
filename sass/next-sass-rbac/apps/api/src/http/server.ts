@@ -11,6 +11,7 @@ import {
   ZodTypeProvider,
 } from 'fastify-type-provider-zod';
 
+import { env } from "@saas/env";
 import { errorhandler } from "./error-handler";
 import { authenticationWithGithub } from "./routes/auth/authenticated-with-github";
 import { authenticationWithPassword } from "./routes/auth/authenticated-with-password";
@@ -32,7 +33,15 @@ app.register(fastifySwagger, {
       description: 'Full-stack SaaS app with multi-tenant & RBAC.',
       version: '1.0.0',
     },
-    servers: [],
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT'
+        }
+      }
+    }
   },
   transform: jsonSchemaTransform,
 });
@@ -42,7 +51,7 @@ app.register(fastifySwaggerUi, {
 })
 
 app.register(fastifyJWT, {
-  secret: 'my-jwt-secret',
+  secret: env.JWT_SECRET,
 })
 
 app.register(fastifyCors)
