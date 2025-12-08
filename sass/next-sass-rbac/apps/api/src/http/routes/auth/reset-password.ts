@@ -46,7 +46,6 @@ export async function resetPassword(app: FastifyInstance) {
               id: code,
             }
           })
-
         ])
 
 
