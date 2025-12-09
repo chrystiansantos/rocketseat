@@ -1,5 +1,7 @@
 'use server'
 import { HTTPError } from 'ky'
+import { cookies as nextCookies } from 'next/headers'
+import { redirect } from 'next/navigation'
 import { z } from 'zod'
 
 import { signInWithPassword } from '@/http/sign-in-with-password'
@@ -28,7 +30,11 @@ export async function signInWithEmailAndPassword(data: FormData) {
       password,
     })
 
-    console.log(token)
+    const cookies = await nextCookies()
+    cookies.set('token', token, {
+      path: '/',
+      maxAge: 60 * 60 * 24 * 7, // 7 days
+    })
   } catch (err) {
     if (err instanceof HTTPError) {
       const { message } = await err.response.json()
@@ -36,11 +42,13 @@ export async function signInWithEmailAndPassword(data: FormData) {
     }
 
     console.error(err)
+
     return {
       success: false,
       message: 'Unexpected error, try again in a few minutes.',
       errors: null,
     }
   }
-  return { success: true, message: null, errors: null }
+
+  redirect('/')
 }
