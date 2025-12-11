@@ -8,8 +8,6 @@ export async function GET(request: NextRequest) {
 
   const code = searchParams.get('code')
 
-  console.log(code, 'code aqui')
-
   if (!code) {
     return NextResponse.json(
       { message: 'Github OAuth code was not found' },

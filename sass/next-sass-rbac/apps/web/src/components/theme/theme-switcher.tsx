@@ -11,17 +11,14 @@ import {
 } from '../ui/dropdown-menu'
 
 export function ThemeSwitcher() {
-  const { resolvedTheme, setTheme } = useTheme()
+  const { setTheme } = useTheme()
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="icon">
-          {resolvedTheme === 'light' ? (
-            <Sun className="size-4" />
-          ) : (
-            <Moon className="size-4" />
-          )}
+          <Sun className="size-4 dark:hidden dark:size-0" />
+          <Moon className="hidden size-0 dark:block dark:size-4" />
           <span className="sr-only">Toogle theme</span>
         </Button>
       </DropdownMenuTrigger>

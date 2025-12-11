@@ -9,7 +9,6 @@ export function middleware(request: NextRequest) {
   if (pathname.startsWith('/org')) {
     const [, , slug] = pathname.split('/')
     response.cookies.set('org', slug)
-    console.log(slug, 'slug')
   } else {
     response.cookies.delete('org')
   }

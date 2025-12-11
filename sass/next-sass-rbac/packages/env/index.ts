@@ -11,14 +11,17 @@ export const env = createEnv({
     GITHUB_OAUTH_CLIENT_REDIRECT_URL: z.url(),
   },
   client: {},
-  shared: {},
+  shared: {
+    NEXT_PUBLIC_API_URL: z.url(),
+  },
   runtimeEnv: {
     SERVER_PORT: process.env.SERVER_PORT,
     DATABASE_URL: process.env.DATABASE_URL,
     JWT_SECRET: process.env.JWT_SECRET,
     GITHUB_OAUTH_CLIENT_ID: process.env.GITHUB_OAUTH_CLIENT_ID,
     GITHUB_OAUTH_CLIENT_SECRET: process.env.GITHUB_OAUTH_CLIENT_SECRET,
-    GITHUB_OAUTH_CLIENT_REDIRECT_URL: process.env.GITHUB_OAUTH_CLIENT_REDIRECT_URL
+    GITHUB_OAUTH_CLIENT_REDIRECT_URL: process.env.GITHUB_OAUTH_CLIENT_REDIRECT_URL,
+    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL
   },
   emptyStringAsUndefined: true
 })
