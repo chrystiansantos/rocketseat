@@ -16,7 +16,7 @@ export async function getOrganizations(app: FastifyInstance) {
         security: [{ bearerAuth: [] }],
         response: {
           200: z.object({
-            organization: z.array(
+            organizations: z.array(
               z.object({
                 id: z.uuid(),
                 name: z.string(),
@@ -62,7 +62,7 @@ export async function getOrganizations(app: FastifyInstance) {
       })
 
       return {
-        organization: organizationsWithUserRole
+        organizations: organizationsWithUserRole
       }
     })
 }
