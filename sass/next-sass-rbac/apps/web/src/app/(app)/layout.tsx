@@ -5,10 +5,10 @@ import { isAuthenticated } from '@/auth/auth'
 
 export default async function AppLayout({
   children,
-  teste,
+  sheet,
 }: {
   children: ReactNode
-  teste: ReactNode
+  sheet: ReactNode
 }) {
   if (!(await isAuthenticated())) {
     redirect('/auth/sign-in')
@@ -17,7 +17,7 @@ export default async function AppLayout({
   return (
     <>
       {children}
-      {teste}
+      {sheet}
     </>
   )
 }
