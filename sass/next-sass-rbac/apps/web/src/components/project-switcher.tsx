@@ -1,13 +1,13 @@
 'use client'
 import { useQuery } from '@tanstack/react-query'
-import { ChevronsUpDown, PlusCircle } from 'lucide-react'
+import { ChevronsUpDown, Loader2, PlusCircle } from 'lucide-react'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
 
 import { getProjects } from '@/http/get-projects'
 import { getInitial } from '@/lib/utils'
 
-import { Avatar, AvatarFallback } from './ui/avatar'
+import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,43 +17,61 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from './ui/dropdown-menu'
+import { Skeleton } from './ui/skeleton'
 
 export function ProjectSwitcher() {
-  const { slug: orgSlug } = useParams<{
+  const { slug: orgSlug, project: projectSlug } = useParams<{
     slug: string
+    project: string
   }>()
 
-  const { data } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: [orgSlug, 'projects'],
     queryFn: () => getProjects(orgSlug),
     enabled: !!orgSlug,
   })
 
-  console.log(data, 'data')
+  const currentProject =
+    data && projectSlug
+      ? data?.projects.find((project) => project.slug === projectSlug)
+      : null
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="focus-visible:ring-primary flex w-[168px] items-center gap-2 rounded p-1 text-sm font-medium outline-none focus-visible:ring-2">
-        {/* {currentOrganization ? (
+        {isLoading ? (
           <>
-            <Avatar className="mr-2 size-4">
-              {currentOrganization.avatar && (
-                <AvatarImage src={currentOrganization.avatar}></AvatarImage>
-              )}
-              {currentOrganization.name && (
-                <AvatarFallback>
-                  {getInitial(currentOrganization.name)}
-                </AvatarFallback>
-              )}
-            </Avatar>
-            <span className="truncate text-left">
-              {currentOrganization.name}
-            </span>
+            <Skeleton className="size-4 rounded-full" />
+            <Skeleton className="h-4 flex-1" />
           </>
-        ) : ( */}
-        <span className="text-muted-foreground">Select project</span>
-        {/* )} */}
-        <ChevronsUpDown className="text-muted-foreground ml-auto size-4" />
+        ) : (
+          <>
+            {currentProject ? (
+              <>
+                <Avatar className="size-4">
+                  {currentProject.avatarUrl && (
+                    <AvatarImage src={currentProject.avatarUrl}></AvatarImage>
+                  )}
+                  {currentProject.name && (
+                    <AvatarFallback>
+                      {getInitial(currentProject.name)}
+                    </AvatarFallback>
+                  )}
+                </Avatar>
+                <span className="truncate text-left">
+                  {currentProject.name}
+                </span>
+              </>
+            ) : (
+              <span className="text-muted-foreground">Select project</span>
+            )}
+          </>
+        )}
+        {isLoading ? (
+          <Loader2 className="text-muted-foreground ml-auto size-4 shrink-0 animate-spin" />
+        ) : (
+          <ChevronsUpDown className="text-muted-foreground ml-auto size-4 shrink-0" />
+        )}
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align="end"
@@ -62,24 +80,27 @@ export function ProjectSwitcher() {
         className="w-[200px]"
       >
         <DropdownMenuGroup>
-          <DropdownMenuLabel>Organizations</DropdownMenuLabel>
-          {/* {organizations.map((organization) => ( */}
-          <DropdownMenuItem asChild>
-            <Link href={``}>
-              <Avatar className="mr-2 size-4">
-                {/* {organization.avatar && <AvatarImage src={''}></AvatarImage>} */}
-                {/* {organization.name && ( */}
-                <AvatarFallback>{getInitial('Projeto teste')}</AvatarFallback>
-                {/* )} */}
-              </Avatar>
-              <span className="line-clamp-1">Projeto teste</span>
-            </Link>
-          </DropdownMenuItem>
-          {/* ))} */}
+          <DropdownMenuLabel>Projects</DropdownMenuLabel>
+
+          {data?.projects.map((project) => (
+            <DropdownMenuItem key={project.id} asChild>
+              <Link href={`/org/${orgSlug}/project/${project.slug}`}>
+                <Avatar className="mr-2 size-4">
+                  {project.avatarUrl && (
+                    <AvatarImage src={project.avatarUrl}></AvatarImage>
+                  )}
+                  {project.name && (
+                    <AvatarFallback>{getInitial(project.name)}</AvatarFallback>
+                  )}
+                </Avatar>
+                <span className="line-clamp-1">Projeto teste</span>
+              </Link>
+            </DropdownMenuItem>
+          ))}
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
-          <Link href="">
+          <Link href={`/org/${orgSlug}/create-project`}>
             <PlusCircle className="mr-2 size-4" />
             Create new
           </Link>
@@ -88,34 +109,3 @@ export function ProjectSwitcher() {
     </DropdownMenu>
   )
 }
-
-// import { ChevronsUpDown, PlusCircle } from 'lucide-react'
-// import Link from 'next/link'
-
-// import { getCurrentOrg } from '@/auth/auth'
-// import { getOrganizations } from '@/http/get-organizations'
-// import { getInitial } from '@/lib/utils'
-
-// import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
-// import {
-//   DropdownMenu,
-//   DropdownMenuContent,
-//   DropdownMenuGroup,
-//   DropdownMenuItem,
-//   DropdownMenuLabel,
-//   DropdownMenuSeparator,
-//   DropdownMenuTrigger,
-// } from './ui/dropdown-menu'
-
-// export async function OrganizationSwitcher() {
-//   const currentOrg = await getCurrentOrg()
-//   const { organizations } = await getOrganizations()
-
-//   const currentOrganization = organizations.find(
-//     (organization) => organization.slug === currentOrg,
-//   )
-
-//   return (
-
-//   )
-// }
