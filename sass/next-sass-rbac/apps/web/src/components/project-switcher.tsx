@@ -93,7 +93,7 @@ export function ProjectSwitcher() {
                     <AvatarFallback>{getInitial(project.name)}</AvatarFallback>
                   )}
                 </Avatar>
-                <span className="line-clamp-1">Projeto teste</span>
+                <span className="line-clamp-1">{project.name}</span>
               </Link>
             </DropdownMenuItem>
           ))}
