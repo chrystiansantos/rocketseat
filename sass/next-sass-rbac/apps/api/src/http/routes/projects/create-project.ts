@@ -34,10 +34,13 @@ export async function createProject(app: FastifyInstance) {
       const userId = await request.getCurrentUserId()
       const { organization, membership } = await request.getUserMembership(slug)
       const { name, description } = request.body
-
+      
+      console.log(userId, membership.role)
+      
       const { cannot } = getUserPermission(userId, membership.role)
 
-      if (!cannot('create', 'Project')) {
+
+      if (cannot('create', 'Project')) {
         throw new UnauthorizedError(`You're not allowed to create a new projects.`)
       }
 

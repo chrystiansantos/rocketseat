@@ -1,5 +1,7 @@
 'use server'
 
+import { getCurrentOrg } from '@/auth/auth'
+import { createProject } from '@/http/create-project'
 import { HTTPError } from 'ky'
 import { z } from 'zod'
 
@@ -23,12 +25,11 @@ export async function createProjectAction(data: FormData) {
   const { name, description } = result.data
 
   try {
-
-    // await createOrganization({
-    //   name,
-    //   domain,
-    //   shouldAttachUsersByDomain
-    // })
+    await createProject({
+      org: (await getCurrentOrg())!,
+      name,
+      description
+    })
 
   } catch (err) {
     if (err instanceof HTTPError) {
@@ -47,7 +48,7 @@ export async function createProjectAction(data: FormData) {
 
   return {
     success: true,
-    message: 'Project successfully saved the organization.',
+    message: 'Successfully saved the project',
     errors: null,
   }
 
