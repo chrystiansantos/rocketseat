@@ -4,7 +4,10 @@ const nextConfig: NextConfig = {
   /* config options here */
   reactCompiler: true,
   images: {
-    remotePatterns: [{ hostname: 'avatars.githubusercontent.com' }]
+    remotePatterns: [
+      { hostname: 'github.com' },
+      { hostname: 'avatars.githubusercontent.com' }
+    ]
   }
 };
 
