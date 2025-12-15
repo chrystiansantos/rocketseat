@@ -63,7 +63,7 @@ export async function acceptInvite(app: FastifyInstance) {
         })
       ])
 
-      return reply.status(204)
+      return reply.status(204).send()
     })
 
 }

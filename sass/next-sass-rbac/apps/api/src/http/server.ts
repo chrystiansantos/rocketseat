@@ -23,6 +23,7 @@ import { getOrganizationBilling } from "./routes/billing/get-organization-billin
 import { acceptInvite } from "./routes/invites/accept-invite";
 import { createInvite } from "./routes/invites/create-invite";
 import { getInvite } from "./routes/invites/get-invite";
+import { getInvites } from "./routes/invites/get-invites";
 import { getPendingInvite } from "./routes/invites/get-pending-invites";
 import { rejectInvite } from "./routes/invites/reject-invite";
 import { revokeInvite } from "./routes/invites/revoke-invite";
@@ -99,6 +100,7 @@ app.register(updateProject)
 app.register(getMembers)
 app.register(updateMember)
 app.register(removeMember)
+app.register(getInvites)
 app.register(createInvite)
 app.register(getInvite)
 app.register(acceptInvite)

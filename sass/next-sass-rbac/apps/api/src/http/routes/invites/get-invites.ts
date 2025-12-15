@@ -43,7 +43,7 @@ export async function getInvites(app: FastifyInstance) {
 
       const { cannot } = getUserPermission(userId, membership.role)
 
-      if (!cannot('get', 'Invite')) {
+      if (cannot('get', 'Invite')) {
         throw new UnauthorizedError(`You're not allowed to get organization invites.`)
       }
 
