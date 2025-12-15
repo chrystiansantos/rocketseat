@@ -9,11 +9,27 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { useFormState } from '@/hooks/use-form-state'
 
-import { organizationAction } from '../create-organization/actions'
+import {
+  createOrganizationAction,
+  OrganizationSchema,
+  updateOrganizationAction,
+} from './actions'
 
-export function OrganizationForm() {
+interface OrganizationFormProps {
+  isUpdating?: boolean
+  initialData?: OrganizationSchema
+}
+
+export function OrganizationForm({
+  isUpdating = false,
+  initialData,
+}: OrganizationFormProps) {
+  const formAction = isUpdating
+    ? updateOrganizationAction
+    : createOrganizationAction
+
   const [{ success, message, errors }, handleSubmit, isPending] =
-    useFormState(organizationAction)
+    useFormState(formAction)
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
@@ -37,7 +53,7 @@ export function OrganizationForm() {
       )}
       <div className="space-y-1">
         <Label htmlFor="name">Organization name</Label>
-        <Input name="name" id="name" />
+        <Input name="name" id="name" defaultValue={initialData?.name} />
         {errors?.properties?.name && (
           <p className="text-xs font-medium text-red-500 dark:text-red-400">
             {errors.properties.name.errors[0]}
@@ -53,6 +69,7 @@ export function OrganizationForm() {
           id="domain"
           inputMode="url"
           placeholder="example.com"
+          defaultValue={initialData?.domain ?? undefined}
         />
         {errors?.properties?.domain && (
           <p className="text-xs font-medium text-red-500 dark:text-red-400">
@@ -67,6 +84,7 @@ export function OrganizationForm() {
             name="shouldAttachUsersByDomain"
             id="shouldAttachUsersByDomain"
             className="translate-y-0.5"
+            defaultChecked={initialData?.shouldAttachUsersByDomain}
           />
           <label className="space-y-1" htmlFor="shouldAttachUsersByDomain">
             <span className="text-sm leading-none font-medium">

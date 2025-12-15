@@ -1,7 +1,10 @@
 'use server'
 
+import { getCurrentOrg } from '@/auth/auth'
 import { createOrganization } from '@/http/create-organization'
+import { updateOrganization } from '@/http/update-organization'
 import { HTTPError } from 'ky'
+import { revalidateTag } from 'next/cache'
 import { z } from 'zod'
 
 const organizationSchema = z.object({
@@ -30,7 +33,9 @@ const organizationSchema = z.object({
   path: ['domain']
 })
 
-export async function organizationAction(data: FormData) {
+export type OrganizationSchema = z.infer<typeof organizationSchema>
+
+export async function createOrganizationAction(data: FormData) {
   const result = organizationSchema.safeParse(Object.fromEntries(data))
 
   if (!result.success) {
@@ -51,6 +56,59 @@ export async function organizationAction(data: FormData) {
       domain,
       shouldAttachUsersByDomain
     })
+
+    revalidateTag('organization', 'max')
+  } catch (err) {
+    if (err instanceof HTTPError) {
+      const { message } = await err.response.json()
+      return { success: false, message, errors: null }
+    }
+
+    console.error(err)
+
+    return {
+      success: false,
+      message: 'Unexpected error, try again in a few minutes.',
+      errors: null,
+    }
+  }
+
+  return {
+    success: true,
+    message: 'Organization successfully saved the organization.',
+    errors: null,
+  }
+
+  // redirect('/auth/sign-in')
+}
+
+
+export async function updateOrganizationAction(data: FormData) {
+  const currentOrg = await getCurrentOrg()
+
+  const result = organizationSchema.safeParse(Object.fromEntries(data))
+
+  if (!result.success) {
+    const errors = z.treeifyError(result.error)
+    return {
+      success: false,
+      message: null,
+      errors,
+    }
+  }
+
+  const { name, domain, shouldAttachUsersByDomain } = result.data
+
+  try {
+
+    await updateOrganization({
+      org: currentOrg!,
+      name,
+      domain,
+      shouldAttachUsersByDomain
+    })
+
+    revalidateTag('organization', 'max')
 
   } catch (err) {
     if (err instanceof HTTPError) {
