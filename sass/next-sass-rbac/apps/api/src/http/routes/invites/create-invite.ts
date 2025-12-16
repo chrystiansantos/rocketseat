@@ -38,11 +38,11 @@ export async function createInvite(app: FastifyInstance) {
 
       const { cannot } = getUserPermission(userId, membership.role)
 
-      if (!cannot('create', 'Invite')) {
+      if (cannot('create', 'Invite')) {
         throw new UnauthorizedError(`You're not allowed to create a new invites.`)
       }
 
-      const [, domain] = email
+      const [, domain] = email.split('@')
 
       if (organization.shouldAttachUsersByDomain && organization.domain === domain) {
         throw new BadRequestError(
